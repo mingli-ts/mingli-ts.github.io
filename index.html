@@ -4,50 +4,105 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Random Number Speaker</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1 {
+            color: #5a5a5a;
+        }
+
+        label, select, button {
+            font-size: 16px;
+            padding: 8px;
+            margin: 5px 0;
+        }
+
+        select, button {
+            cursor: pointer;
+            border: 1px solid #ccc;
+            background-color: white;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #e2e2e2;
+        }
+
+        #number-display {
+            font-size: 24px;
+            color: #000;
+            margin-top: 20px;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            white-space: pre-wrap;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+    </style>
 </head>
 <body>
-    <label for="interval-selector">Interval between numbers (seconds):</label>
-    <select id="interval-selector">
-        <option value="1000">1 Second</option>
-        <option value="2000">2 Seconds</option>
-        <option value="3000">3 Seconds</option>
-        <option value="4000">4 Seconds</option>
-        <option value="5000">5 Seconds</option>
-    </select><br>
+    <div class="container">
+        <h1>Random Number Speaker</h1>
+        <label for="interval-selector">Interval between numbers (seconds):</label>
+        <select id="interval-selector">
+            <option value="1000">1 Second</option>
+            <option value="2000">2 Seconds</option>
+            <option value="3000">3 Seconds</option>
+            <option value="4000">4 Seconds</option>
+            <option value="5000">5 Seconds</option>
+        </select><br>
 
-    <label for="num-laps">Number of Laps:</label>
-    <select id="num-laps">
-        <option value="1">1 Lap</option>
-        <option value="2">2 Laps</option>
-        <option value="3">3 Laps</option>
-        <option value="4">4 Laps</option>
-        <option value="5">5 Laps</option>
-        <option value="5">6 Laps</option>
-        <option value="5">7 Laps</option>
-        <option value="5">8 Laps</option>
-        <option value="5">9 Laps</option>
-        <option value="5" selected>10 Laps</option>
-    </select><br>
+        <label for="num-laps">Number of Laps:</label>
+        <select id="num-laps">
+            <option value="1">1 Lap</option>
+            <option value="2">2 Laps</option>
+            <option value="3">3 Laps</option>
+            <option value="4">4 Laps</option>
+            <option value="5" selected>5 Laps</option>
+            <option value="6">6 Laps</option>
+            <option value="7">7 Laps</option>
+            <option value="8">8 Laps</option>
+            <option value="9">9 Laps</option>
+            <option value="10">10 Laps</option>
+        </select><br>
 
-    <label for="rest-duration">Rest between laps (minutes):</label>
-    <select id="rest-duration">
-        <option value="30">30 Seconds</option>
-        <option value="60" selected>60 Seconds</option>
-        <option value="90">90 Seconds</option>
-    </select><br>
+        <label for="rest-duration">Rest between laps (seconds):</label>
+        <select id="rest-duration">
+            <option value="30">30 Seconds</option>
+            <option value="45">45 Seconds</option>
+            <option value="60">60 Seconds</option>
+            <option value="75">75 Seconds</option>
+            <option value="90">90 Seconds</option>
+        </select><br>
 
-    <label for="numbers-per-lap">Numbers per Lap:</label>
-    <select id="numbers-per-lap">
-        <option value="5">5 Numbers</option>
-        <option value="10">10 Numbers</option>
-        <option value="15">15 Numbers</option>
-        <option value="20">20 Numbers</option>
-    </select><br>
+        <label for="numbers-per-lap">Numbers per Lap:</label>
+        <select id="numbers-per-lap">
+            <option value="5">5 Numbers</option>
+            <option value="10">10 Numbers</option>
+            <option value="15">15 Numbers</option>
+            <option value="20">20 Numbers</option>
+        </select><br>
 
-    <button id="startBtn">Start</button>
-    <button id="stopBtn">Stop</button>
+        <button id="startBtn">Start</button>
+        <button id="stopBtn">Stop</button>
 
-    <pre id="number-display" style="font-size: 24px; margin-top: 20px; white-space: pre-wrap;"></pre> <!-- Updated element for multiline display -->
+        <pre id="number-display"></pre>
+    </div>
 
     <script src="script.js"></script>
 </body>
