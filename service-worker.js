@@ -5,7 +5,6 @@ self.addEventListener('install', function(event) {
                 '/',
                 '/index.html',
                 '/script.js',
-                '/style.css',  // If you have a CSS file
                 '/icon-192x192.png',
                 '/icon-512x512.png'
             ]);
