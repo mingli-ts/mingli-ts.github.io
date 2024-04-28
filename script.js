@@ -1,3 +1,13 @@
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }, function(err) {
+            console.log('ServiceWorker registration failed: ', err);
+        });
+    });
+}
+
 document.getElementById('startBtn').addEventListener('click', startLaps);
 document.getElementById('stopBtn').addEventListener('click', stopProcess);
 
@@ -84,12 +94,3 @@ const buttonClickHandler = () => {
 document.getElementById('startBtn').addEventListener('click', buttonClickHandler);
 document.getElementById('stopBtn').addEventListener('click', buttonClickHandler);
 
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
-            console.log('ServiceWorker registration successful with scope: ', registration.scope);
-        }, function(err) {
-            console.log('ServiceWorker registration failed: ', err);
-        });
-    });
-}
