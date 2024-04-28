@@ -4,12 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Random Number Speaker</title>
-    <link rel="manifest" href="manifest.json">
 </head>
 <body>
-    <div id="number-display" style="font-size: 24px; margin-bottom: 20px;"></div>
+    <label for="interval-selector">Interval between numbers (seconds):</label>
+    <select id="interval-selector">
+        <option value="1000">1 Second</option>
+        <option value="2000">2 Seconds</option>
+        <option value="3000">3 Seconds</option>
+        <option value="4000">4 Seconds</option>
+        <option value="5000">5 Seconds</option>
+    </select><br>
+
+    <label for="num-laps">Number of Laps:</label>
+    <select id="num-laps">
+        <option value="1">1 Lap</option>
+        <option value="2">2 Laps</option>
+        <option value="3">3 Laps</option>
+        <option value="4">4 Laps</option>
+        <option value="5">5 Laps</option>
+        <option value="5">6 Laps</option>
+        <option value="5">7 Laps</option>
+        <option value="5">8 Laps</option>
+        <option value="5">9 Laps</option>
+        <option value="5" selected>10 Laps</option>
+    </select><br>
+
+    <label for="rest-duration">Rest between laps (minutes):</label>
+    <select id="rest-duration">
+        <option value="30">30 Seconds</option>
+        <option value="60" selected>60 Seconds</option>
+        <option value="90">90 Seconds</option>
+    </select><br>
+
+    <label for="numbers-per-lap">Numbers per Lap:</label>
+    <select id="numbers-per-lap">
+        <option value="5">5 Numbers</option>
+        <option value="10">10 Numbers</option>
+        <option value="15">15 Numbers</option>
+        <option value="20">20 Numbers</option>
+    </select><br>
+
     <button id="startBtn">Start</button>
     <button id="stopBtn">Stop</button>
+
+    <pre id="number-display" style="font-size: 24px; margin-top: 20px; white-space: pre-wrap;"></pre> <!-- Updated element for multiline display -->
 
     <script src="script.js"></script>
 </body>
