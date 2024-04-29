@@ -54,18 +54,18 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
     </style>
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="manifest.json">
 </head>
 <body>
     <div class="container">
         <h1>Fencing Target Practice</h1>
-        <label for="interval-selector">Interval between numbers (seconds):</label>
+        <label for="interval-selector">Speed:</label>
         <select id="interval-selector">
-            <option value="1000">1 Second</option>
-            <option value="2000">2 Seconds</option>
-            <option value="3000">3 Seconds</option>
-            <option value="4000">4 Seconds</option>
-            <option value="5000">5 Seconds</option>
+            <option value="1000">1 Second/Hit</option>
+            <option value="2000">2 Seconds/Hit</option>
+            <option value="3000">3 Seconds/Hit</option>
+            <option value="4000">4 Seconds/Hit</option>
+            <option value="5000">5 Seconds/Hit</option>
         </select><br>
 
         <label for="num-laps">Number of Laps:</label>
@@ -82,7 +82,15 @@
             <option value="10">10 Laps</option>
         </select><br>
 
-        <label for="rest-duration">Rest between laps (seconds):</label>
+        <label for="hits-per-lap">Hits per Lap:</label>
+        <select id="hits-per-lap">
+            <option value="5">5 Hits</option>
+            <option value="10">10 Hits</option>
+            <option value="15">15 Hits</option>
+            <option value="20">20 Hits</option>
+        </select><br>
+
+        <label for="rest-duration">Rest Time:</label>
         <select id="rest-duration">
             <option value="30">15 Seconds</option>
             <option value="30">30 Seconds</option>
@@ -92,16 +100,15 @@
             <option value="90">90 Seconds</option>
         </select><br>
 
-        <label for="numbers-per-lap">Targets per Lap:</label>
-        <select id="numbers-per-lap">
-            <option value="5">5 Targets</option>
-            <option value="10">10 Targets</option>
-            <option value="15">15 Targets</option>
-            <option value="20">20 Targets</option>
+        <label for="numbers-of-targets">Number of Targets:</label>
+        <select id="numbers-of-targets">
+            <option value="2">2 Targets</option>
+            <option value="3">3 Targets</option>
+            <option value="4">4 Targets</option>
+            <option value="5" selected>5 Targets</option>
         </select><br>
 
         <button id="startBtn">Start</button>
-        <button id="refreshBtn">Refresh</button>
 
         <pre id="number-display"></pre>
     </div>
