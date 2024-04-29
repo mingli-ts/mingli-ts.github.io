@@ -8,77 +8,76 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-document.getElementById('startBtn').addEventListener('click', startLaps);
-document.getElementById('stopBtn').addEventListener('click', stopProcess);
+document.getElementById('startBtn').addEventListener('click', toggleStartPause);
+document.getElementById('refreshBtn').addEventListener('click', refreshApp);
 
-let mainIntervalId = null;
+let isRunning = false;
+let currentLap = 0;
+let numLaps = 5; // Total number of laps - adjustable as needed
+let numbersPerLap = 10; // Numbers per lap - adjustable as needed
 let lapIntervalId = null;
 let restTimeoutId = null;
-let readyTimeoutId = null;
 
-function startLaps() {
-    const numLaps = parseInt(document.getElementById('num-laps').value, 10);
-    let currentLap = 0;
-
-    function nextLap() {
-        if (currentLap < numLaps) {
-            currentLap++;
-            document.getElementById('number-display').textContent = document.getElementById('number-display').textContent + "\nLap: " + currentLap;
-            speakNumbersInLap(() => {
-                if (currentLap < numLaps) {
-                    scheduleRest();
-                } else {
-                    console.log("Completed all laps.");
-                }
-            });
-        }
+function toggleStartPause() {
+    if (!isRunning) {
+        document.getElementById('startBtn').textContent = 'Pause';
+        isRunning = true;
+        startNextLap();
+    } else {
+        document.getElementById('startBtn').textContent = 'Start';
+        pauseLaps();
+        isRunning = false;
     }
-
-    function scheduleRest() {
-        const restDuration = parseInt(document.getElementById('rest-duration').value, 10) * 1000;
-        console.log("Lap completed. Resting...");
-        document.getElementById('number-display').textContent = document.getElementById('number-display').textContent + "\nRest";
-        window.speechSynthesis.speak(new SpeechSynthesisUtterance("Rest"));
-        restTimeoutId = setTimeout(() => {
-            document.getElementById('number-display').textContent = document.getElementById('number-display').textContent + "\nGet ready";
-            window.speechSynthesis.speak(new SpeechSynthesisUtterance("Get ready"));
-            readyTimeoutId = setTimeout(nextLap, 5000); // Schedule next lap to start after "Get ready"
-        }, restDuration - 5000); // Trigger "Get ready" 5 seconds before rest ends
-    }
-
-    nextLap(); // Start the first lap immediately
 }
 
-function speakNumbersInLap(completedCallback) {
-    const numbersPerLap = parseInt(document.getElementById('numbers-per-lap').value, 10);
-    const interval = parseInt(document.getElementById('interval-selector').value, 10);
-    let count = 0;
+function startNextLap() {
+    if (currentLap < numLaps) {
+        currentLap++;
+        speakNumbersInLap(numbersPerLap, () => {
+            if (currentLap < numLaps) {
+                let restDuration = 30000; // Rest duration in milliseconds - adjustable as needed
+                restTimeoutId = setTimeout(startNextLap, restDuration);
+            } else {
+                console.log("Completed all laps.");
+            }
+        });
+    }
+}
+
+function speakNumbersInLap(count, completedCallback) {
+    let numberCount = 0;
+    let interval = 1000; // Time between numbers in milliseconds - adjustable as needed
 
     function speakNumber() {
-        if (count < numbersPerLap) {
+        if (numberCount < count) {
             const randomNumber = Math.floor(Math.random() * 5) + 1;
+            document.getElementById('number-display').textContent = randomNumber;
             const utterance = new SpeechSynthesisUtterance(randomNumber.toString());
-            utterance.onend = () => {
-                if (++count < numbersPerLap) {
-                    setTimeout(speakNumber, interval); // Wait the interval before speaking the next number
-                } else {
-                    completedCallback(); // All numbers spoken, call the completion callback
-                }
-            };
-            // document.getElementById('number-display').textContent = randomNumber;
             window.speechSynthesis.speak(utterance);
+            numberCount++;
+        }
+        if (numberCount >= count) {
+            clearInterval(lapIntervalId);
+            completedCallback();
         }
     }
 
-    speakNumber();
+    lapIntervalId = setInterval(speakNumber, interval);
 }
 
-function stopProcess() {
+function pauseLaps() {
     clearInterval(lapIntervalId);
     clearTimeout(restTimeoutId);
-    clearTimeout(readyTimeoutId);
-    document.getElementById('number-display').textContent = "Stopped";
-    console.log("Process stopped by user.");
+}
+
+function refreshApp() {
+    clearInterval(lapIntervalId);
+    clearTimeout(restTimeoutId);
+    isRunning = false;
+    currentLap = 0;
+    document.getElementById('startBtn').textContent = 'Start';
+    document.getElementById('number-display').textContent = '';
+    console.log("Application has been reset to initial state.");
 }
 
 
@@ -92,5 +91,5 @@ const buttonClickHandler = () => {
 };
 
 document.getElementById('startBtn').addEventListener('click', buttonClickHandler);
-document.getElementById('stopBtn').addEventListener('click', buttonClickHandler);
+document.getElementById('refreshBtn').addEventListener('click', buttonClickHandler);
 
